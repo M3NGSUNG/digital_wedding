@@ -1,0 +1,644 @@
+<!doctype html>
+<html lang="km">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Wedding Invitation</title>
+
+  <!-- Khmer-friendly font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Khmer:wght@400;600&family=Great+Vibes&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --gold:#c9a24f;
+      --gold2:#e7c77a;
+      --bg:#eef1f6;
+      --card: rgba(20, 22, 28, .55);
+      --text:#ffffff;
+      --muted: rgba(255,255,255,.8);
+      --radius: 22px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:"Noto Serif Khmer", system-ui, sans-serif;
+      background: var(--bg);
+      color:#111;
+      overflow-x:hidden;
+    }
+
+    /* Background image behind everything */
+    .bg {
+      position:fixed; inset:0;
+      background:
+        linear-gradient(180deg, rgba(10,12,18,.35), rgba(10,12,18,.65)),
+        url("assets/bg.jpg") center/cover no-repeat;
+      filter:saturate(1.05);
+      transform:scale(1.02);
+      z-index:-3;
+    }
+
+    /* Falling hearts container */
+    #fallLayer{
+      position:fixed; inset:0;
+      pointer-events:none;
+      overflow:hidden;
+      z-index: 50;
+    }
+
+    /* ✅ GOLD hearts & flowers */
+    .heart{
+      position:absolute;
+      top:-40px;
+      font-size:18px;
+      opacity:.95;
+
+      /* GOLD COLOR */
+      color: #d4af37;
+
+      /* GOLD GLOW */
+      filter:
+        drop-shadow(0 0 6px rgba(212,175,55,.9))
+        drop-shadow(0 6px 12px rgba(0,0,0,.35));
+
+      animation: fall linear forwards;
+      will-change: transform, opacity;
+    }
+
+    @keyframes fall{
+      0%   { transform: translate3d(0,-40px,0) rotate(0deg); opacity:0 }
+      10%  { opacity:.95 }
+      100% { transform: translate3d(var(--drift), 110vh, 0) rotate(var(--rot)); opacity:0 }
+    }
+
+    /* Cover / “Open Invitation” */
+    .cover{
+      position:fixed; inset:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:20px;
+      z-index:100;
+      background: linear-gradient(180deg, rgba(10,12,18,.65), rgba(10,12,18,.85));
+      backdrop-filter: blur(2px);
+    }
+    .coverCard{
+      width:min(420px, 100%);
+      border-radius:var(--radius);
+      padding:22px 18px 18px;
+      border:1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.06);
+      box-shadow: 0 18px 55px rgba(0,0,0,.35);
+      text-align:center;
+    }
+    .coverTitle{
+      font-weight:600;
+      font-size:22px;
+      color:var(--gold2);
+      letter-spacing:.2px;
+      margin:0 0 12px;
+    }
+    .coverNames{
+      font-family:"Great Vibes", cursive;
+      font-size:48px;
+      line-height:1;
+      color:#fff;
+      margin: 8px 0 10px;
+    }
+    .coverSub{
+      color:var(--muted);
+      margin:0 0 18px;
+      font-size:14px;
+    }
+    .openBtn{
+      width:100%;
+      border:0;
+      padding:14px 16px;
+      border-radius:16px;
+      font-weight:600;
+      font-size:16px;
+      background: linear-gradient(135deg, var(--gold), var(--gold2));
+      color:#1a1a1a;
+      cursor:pointer;
+      display:flex;
+      gap:10px;
+      align-items:center;
+      justify-content:center;
+    }
+    .openBtn:active{transform:scale(.99)}
+    .hint{
+      margin-top:12px;
+      font-size:12px;
+      color:rgba(255,255,255,.75);
+    }
+
+    /* Main layout */
+    .wrap{
+      width:min(980px, 100%);
+      margin:0 auto;
+      padding:18px 16px 80px;
+    }
+
+    .heroCard{
+      margin-top:14px;
+      border-radius:var(--radius);
+      border:1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.06);
+      overflow:hidden;
+      box-shadow: 0 18px 55px rgba(0,0,0,.28);
+    }
+    .heroTop{
+      position:relative;
+      padding:20px;
+      min-height:440px;
+      display:flex;
+      align-items:flex-end;
+      justify-content:center;
+      text-align:center;
+      background:
+        radial-gradient(1200px 600px at 50% 10%, rgba(255,255,255,.12), transparent 60%),
+        url("assets/hero.jpg") center/cover no-repeat;
+    }
+    .heroOverlay{
+      position:absolute; inset:0;
+      background: linear-gradient(180deg, rgba(0,0,0,.05), rgba(0,0,0,.6));
+    }
+    .heroContent{
+      position:relative;
+      color:var(--text);
+      padding: 18px 14px 12px;
+      width:100%;
+    }
+    .tag{
+      display:inline-block;
+      padding:8px 12px;
+      border:1px solid rgba(255,255,255,.2);
+      border-radius:999px;
+      background: rgba(0,0,0,.25);
+      font-size:13px;
+      margin-bottom:12px;
+    }
+    .heroNames{
+      font-family:"Great Vibes", cursive;
+      font-size:54px;
+      margin:0;
+      letter-spacing:.3px;
+    }
+    .heroLine{
+      margin:10px auto 0;
+      color:rgba(255,255,255,.92);
+      font-size:14px;
+      max-width:560px;
+    }
+
+    .section{
+      padding:18px 16px;
+      color:#fff;
+    }
+    .sectionTitle{
+      margin:0 0 12px;
+      font-size:18px;
+      color:var(--gold2);
+      font-weight:600;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap:12px;
+    }
+    .card{
+      grid-column: span 12;
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.18);
+      background: rgba(0,0,0,.35);
+      padding:14px;
+    }
+    @media (min-width: 860px){
+      .card.half{grid-column: span 6;}
+      .card.third{grid-column: span 4;}
+    }
+
+    .kv{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+    }
+    .icon{
+      width:42px; height:42px;
+      border-radius:14px;
+      background: linear-gradient(135deg, rgba(201,162,79,.9), rgba(231,199,122,.9));
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex:0 0 auto;
+      color:#1a1a1a;
+      font-weight:700;
+    }
+    .kv h3{
+      margin:0;
+      font-size:15px;
+      color:#fff;
+    }
+    .kv p{
+      margin:6px 0 0;
+      font-size:13px;
+      color: rgba(255,255,255,.85);
+      line-height:1.6;
+    }
+
+    /* ✅ Save-the-date header (like your screenshot) */
+    .saveHeader{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      margin-bottom:12px;
+    }
+    .saveHeader .cal{
+      width:44px;
+      height:44px;
+      border-radius:14px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background: linear-gradient(135deg, rgba(201,162,79,.95), rgba(231,199,122,.95));
+      color:#1a1a1a;
+      font-weight:700;
+      flex:0 0 auto;
+    }
+    .saveHeader .title{
+      font-size:16px;
+      font-weight:600;
+      color: var(--gold2);
+      margin:0;
+      line-height:1.1;
+    }
+    .saveHeader .dateLine{
+      margin:6px 0 0;
+      font-size:14px;
+      color:#fff;
+      font-weight:600;
+    }
+    .saveHeader .timeLine{
+      margin:4px 0 0;
+      font-size:13px;
+      color: rgba(255,255,255,.85);
+    }
+
+    /* ✅ Countdown boxes (match screenshot) */
+    .countdown{
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap:10px;
+      margin-top:10px;
+    }
+    .pill{
+      text-align:center;
+      padding:14px 10px 12px;
+      border-radius:16px;
+      background: rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.22);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.12);
+      backdrop-filter: blur(6px);
+    }
+    .pill b{
+      display:block;
+      font-size:28px;
+      color: var(--gold2);
+      line-height:1.05;
+      letter-spacing:.5px;
+    }
+    .pill span{
+      display:block;
+      margin-top:6px;
+      font-size:13px;
+      color: var(--gold2);
+      opacity:.95;
+    }
+
+    /* Gallery */
+    .gallery{
+      display:grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap:10px;
+    }
+    @media (min-width: 860px){
+      .gallery{grid-template-columns: repeat(3, 1fr);}
+    }
+    .gimg{
+      border-radius:18px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.15);
+      background: rgba(255,255,255,.06);
+      aspect-ratio: 4/5;
+    }
+    .gimg img{
+      width:100%; height:100%;
+      object-fit:cover;
+      display:block;
+    }
+
+    /* Bottom controls */
+    .bottomBar{
+      position:fixed;
+      left:0; right:0; bottom:12px;
+      display:flex;
+      justify-content:center;
+      z-index:80;
+      pointer-events:none;
+    }
+    .barInner{
+      pointer-events:auto;
+      width:min(520px, calc(100% - 24px));
+      display:flex;
+      gap:10px;
+      align-items:center;
+      justify-content:space-between;
+      padding:10px 12px;
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.18);
+      background: rgba(0,0,0,.45);
+      backdrop-filter: blur(6px);
+      color:#fff;
+    }
+    .smallBtn{
+      border:0;
+      padding:10px 12px;
+      border-radius:14px;
+      background: rgba(255,255,255,.10);
+      border:1px solid rgba(255,255,255,.14);
+      color:#fff;
+      cursor:pointer;
+      font-weight:600;
+      font-size:13px;
+    }
+
+    .musicState{
+      font-size:12px;
+      color:rgba(255,255,255,.85);
+    }
+
+    /* Hide cover when opened */
+    .hidden{display:none !important}
+  </style>
+</head>
+
+<body>
+  <div class="bg"></div>
+  <div id="fallLayer"></div>
+
+  <!-- AUDIO -->
+  <audio id="bgMusic" preload="auto" loop>
+    <source src="assets/song.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- COVER -->
+  <div class="cover" id="cover">
+    <div class="coverCard">
+      <p class="coverTitle">សូមអញ្ជើញចូលរួមមង្គលការ</p>
+      <div class="coverNames">HH &amp; YY</div>
+      <p class="coverSub">ចុចប៊ូតុងខាងក្រោម ដើម្បីបើកការអញ្ជើញ (Music + Animation)</p>
+      <button class="openBtn" id="openInvite">✉️ បើកសំបុត្រអញ្ជើញ</button>
+      <div class="hint">Music will start after you tap (browser policy)</div>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="wrap">
+    <div class="heroCard">
+      <div class="heroTop">
+        <div class="heroOverlay"></div>
+        <div class="heroContent">
+          <div class="tag">The Wedding Day</div>
+          <h1 class="heroNames">HH &amp; YY</h1>
+          <p class="heroLine">SAVE THE DATE • 13.10.2026 • 12:00 PM</p>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="grid">
+
+          <!-- ✅ UPDATED COUNTDOWN CARD -->
+          <div class="card half">
+            <div class="saveHeader">
+              <div class="cal">🗓️</div>
+              <div>
+                <p class="title">កាលបរិច្ឆេទ</p>
+                <p class="dateLine" id="dateText">ថ្ងៃច័ន្ទ 13 តុលា 2026</p>
+                <p class="timeLine" id="timeText">ម៉ោង 12:00 ថ្ងៃត្រង់ (សៅតិកាល)</p>
+              </div>
+            </div>
+
+            <div class="countdown" id="countdown"></div>
+          </div>
+
+          <div class="card half">
+            <h2 class="sectionTitle">ទីតាំង</h2>
+            <div class="kv">
+              <div class="icon">📍</div>
+              <div>
+                <h3 id="placeName">Test (កែឈ្មោះទីតាំង)</h3>
+                <p id="placeDesc">អាសយដ្ឋាន៖ Phnom Penh, Cambodia (កែបាន)</p>
+                <p>
+                  <a id="mapLink" href="https://maps.google.com" target="_blank" style="color:var(--gold2);text-decoration:none;">
+                    បើក Google Maps →
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="sectionTitle">រូបភាព (Gallery)</h2>
+            <div class="gallery">
+              <div class="gimg"><img src="assets/g1.jpg" alt=""></div>
+              <div class="gimg"><img src="assets/g2.jpg" alt=""></div>
+              <div class="gimg"><img src="assets/g3.jpg" alt=""></div>
+              <div class="gimg"><img src="assets/g4.jpg" alt=""></div>
+              <div class="gimg"><img src="assets/g5.jpg" alt=""></div>
+              <div class="gimg"><img src="assets/g6.jpg" alt=""></div>
+            </div>
+          </div>
+
+          <div class="card half">
+            <h2 class="sectionTitle">QR Code</h2>
+            <p style="margin:0;color:rgba(255,255,255,.85);font-size:13px;line-height:1.7">
+              ដាក់ QR ទៅកាន់ Link Website ឬ Telegram / Facebook (អាចប្ដូរបាន)
+            </p>
+            <div style="margin-top:12px;display:flex;justify-content:center;">
+              <img src="assets/qr.png" alt="QR" style="width:min(260px,100%);border-radius:18px;border:1px solid rgba(255,255,255,.18);background:#fff;padding:10px;">
+            </div>
+          </div>
+
+          <div class="card half">
+            <h2 class="sectionTitle">សូមអរគុណ</h2>
+            <p style="margin:0;color:rgba(255,255,255,.85);font-size:13px;line-height:1.7">
+              សូមគោរពអញ្ជើញភ្ញៀវកិត្តិយសទាំងអស់ ចូលរួមអបអរសាទរ។
+              <br/>— HH &amp; YY
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Bar -->
+  <div class="bottomBar">
+    <div class="barInner">
+      <div class="musicState" id="musicState">🔇 Music: OFF</div>
+      <div style="display:flex; gap:8px;">
+        <button class="smallBtn" id="toggleMusic">Music</button>
+        <button class="smallBtn" id="toggleHearts">Hearts</button>
+        <button class="smallBtn" id="shareBtn">Share</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ✅ CHANGE YOUR WEDDING DATE/TIME HERE (Cambodia +07:00)
+    const WEDDING_DATE = new Date("2026-10-13T12:00:00+07:00");
+
+    // Optional: show text on the card (edit as you like)
+    document.getElementById("dateText").textContent = "ថ្ងៃច័ន្ទ 13 តុលា 2026";
+    document.getElementById("timeText").textContent = "ម៉ោង 12:00 ថ្ងៃត្រង់ (សៅតិកាល)";
+
+    const HEARTS_DEFAULT_ON = true;
+
+    // Map data (edit)
+    const placeName = "Test";
+    const placeDesc = "អាសយដ្ឋាន៖ Phnom Penh, Cambodia";
+    const mapUrl = "https://www.google.com/maps?q=Phnom+Penh";
+
+    // Elements
+    const cover = document.getElementById("cover");
+    const openInvite = document.getElementById("openInvite");
+    const audio = document.getElementById("bgMusic");
+    const musicState = document.getElementById("musicState");
+    const toggleMusic = document.getElementById("toggleMusic");
+    const toggleHearts = document.getElementById("toggleHearts");
+    const shareBtn = document.getElementById("shareBtn");
+    const fallLayer = document.getElementById("fallLayer");
+    const countdownEl = document.getElementById("countdown");
+
+    // Apply map info
+    document.getElementById("placeName").textContent = placeName;
+    document.getElementById("placeDesc").textContent = placeDesc;
+    document.getElementById("mapLink").href = mapUrl;
+
+    // Music control
+    let musicOn = false;
+    async function startMusic(){
+      try{
+        await audio.play();
+        musicOn = true;
+        musicState.textContent = "🔊 Music: ON";
+      }catch(e){
+        musicOn = false;
+        musicState.textContent = "🔇 Music: OFF (tap again)";
+      }
+    }
+    function stopMusic(){
+      audio.pause();
+      musicOn = false;
+      musicState.textContent = "🔇 Music: OFF";
+    }
+
+    toggleMusic.addEventListener("click", async () => {
+      if(!musicOn) await startMusic();
+      else stopMusic();
+    });
+
+    // Falling hearts
+    let heartsOn = HEARTS_DEFAULT_ON;
+    let heartTimer = null;
+
+    function spawnHeart(){
+      const el = document.createElement("div");
+      el.className = "heart";
+      el.textContent = Math.random() > 0.5 ? "❤" : "❀";
+      const left = Math.random() * 100;
+      const size = 14 + Math.random() * 16;
+      const dur = 4 + Math.random() * 5;
+      const drift = (-40 + Math.random() * 80) + "px";
+      const rot = (-80 + Math.random() * 160) + "deg";
+
+      el.style.left = left + "vw";
+      el.style.fontSize = size + "px";
+      el.style.animationDuration = dur + "s";
+      el.style.setProperty("--drift", drift);
+      el.style.setProperty("--rot", rot);
+
+      fallLayer.appendChild(el);
+      setTimeout(() => el.remove(), dur * 1000 + 200);
+    }
+
+    function startHearts(){
+      if(heartTimer) return;
+      heartsOn = true;
+      toggleHearts.textContent = "Hearts ✅";
+      heartTimer = setInterval(spawnHeart, 250);
+    }
+    function stopHearts(){
+      heartsOn = false;
+      toggleHearts.textContent = "Hearts";
+      clearInterval(heartTimer);
+      heartTimer = null;
+    }
+
+    toggleHearts.addEventListener("click", () => {
+      heartsOn ? stopHearts() : startHearts();
+    });
+
+    // Open invitation
+    openInvite.addEventListener("click", async () => {
+      cover.classList.add("hidden");
+      await startMusic();
+      startHearts();
+      window.scrollTo({top: 0, behavior:"smooth"});
+    });
+
+    // Countdown
+    function pad(n){ return String(n).padStart(2,"0"); }
+    function renderCountdown(){
+      const now = new Date();
+      let diff = Math.max(0, WEDDING_DATE - now);
+
+      const d = Math.floor(diff / (1000*60*60*24));
+      diff -= d * (1000*60*60*24);
+      const h = Math.floor(diff / (1000*60*60));
+      diff -= h * (1000*60*60);
+      const m = Math.floor(diff / (1000*60));
+      diff -= m * (1000*60);
+      const s = Math.floor(diff / 1000);
+
+      countdownEl.innerHTML = `
+        <div class="pill"><b>${pad(d)}</b><span>ថ្ងៃ</span></div>
+        <div class="pill"><b>${pad(h)}</b><span>ម៉ោង</span></div>
+        <div class="pill"><b>${pad(m)}</b><span>នាទី</span></div>
+        <div class="pill"><b>${pad(s)}</b><span>វិនាទី</span></div>
+      `;
+    }
+    renderCountdown();
+    setInterval(renderCountdown, 1000);
+
+    toggleHearts.textContent = heartsOn ? "Hearts ✅" : "Hearts";
+
+    // Share
+    shareBtn.addEventListener("click", async () => {
+      const url = location.href;
+      const text = "Wedding Invitation";
+      if(navigator.share){
+        try{ await navigator.share({ title: text, text, url }); }catch(e){}
+      }else{
+        await navigator.clipboard.writeText(url);
+        alert("Link copied!");
+      }
+    });
+  </script>
+</body>
+</html>
